@@ -1,0 +1,14 @@
+NAME=Jbuilder
+VERSION_FILE=README.Jbuilder
+
+ROOT=/www/Jbuilder
+SRC=$ROOT
+DEST_LIB=/usr/local/builder
+
+DEST_BIN=/usr/local/bin
+
+glob 755 root root $DEST_LIB/  $SRC/Makefile*
+glob 755 root root $DEST_BIN/  $SRC/rpmbuild*
+glob 755 root root $DEST_BIN/Jbuild  $SRC/rpmbuild.sjs
+
+
