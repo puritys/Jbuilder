@@ -1,0 +1,10 @@
+#deploy:
+#	echo $(pkg)
+#	Jbuild  $(pkg).pkg && ssh $(host) 'if [ -f $(pkg)*.rpm ]; then rm $(pkg)-*.rpm; fi'  && scp $(pkg)*.rpm $(host):/www/pkgs/ && ssh $(host) 'sudo rpm -ivh /www/pkgs/$(pkg)*.rpm --force' && rm *.rpm
+
+#make deploy pkg=git host=puritys.me
+deploy: 
+	Jbuild  $(pkg).pkg && if [ ! -f ps_$(pkg)*.rpm ]; then exit; fi && ssh $(host) 'if [ -f ps_$(pkg)*.rpm ]; then rm ps_$(pkg)*.rpm; fi' && ssh $(host) 'sudo rpm -e ps_$(pkg)' && scp ps_$(pkg)*.rpm $(host):/www/pkgs/ && ssh $(host) 'sudo rpm -Uvh /www/pkgs/ps_$(pkg)*.rpm' --force --nodeps  && rm *.rpm
+
+deploy_quick:
+	Jbuild  $(shell cat /tmp/pkg_t).pkg && if [ ! -f $(pkg)*.rpm ]; then exit; fi && ssh $(host) 'if [ -f ps_$(shell cat /tmp/pkg_t)*.rpm ]; then rm ps_$(shell cat /tmp/pkg_t)*.rpm; fi' && ssh $(host) 'sudo rpm -e ps_$(shell cat /tmp/pkg_t)' && scp ps_$(shell cat /tmp/pkg_t)*.rpm $(host):/www/pkgs/ && ssh $(host) 'sudo rpm -Uvh /www/pkgs/ps_$(shell cat /tmp/pkg_t)*.rpm' --force  && rm *.rpm
