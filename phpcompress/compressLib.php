@@ -5,6 +5,7 @@ require_once($rrt.'/core.php');
 mysql_connect('localhost','pts','p1u2r3i4t5y6s7');
 mysql_select_db('accounting');*/
 //中文php
+$GLOBALS['DB_VB'] = array();
 class php_compress extends compress_core{
 	/***compress php data*******/
 	
@@ -27,7 +28,7 @@ class php_compress extends compress_core{
 	var $scramble=0;
 	
 	public function setting($ck=''){
-		$this->filedb=dirname(__FILE__).'/fileDB.txt';
+		$this->filedb = '/tmp/fileDB.txt';
 		$php=0;
 		$php=$ck[0];
 		$this->nocompress=0;
@@ -68,9 +69,9 @@ class php_compress extends compress_core{
 		if(isset($ck[1]) ){
 			$this->scramble=$ck[1];
 		}
-		if(1==1){
-			$f=fopen($this->filedb,'r');
-			$ds=fread($f,filesize($this->filedb));
+		if(1==1) {
+			$f = fopen($this->filedb,'r');
+			$ds = fread($f,filesize($this->filedb));
 			fclose($f);
 			$k=explode(',',$ds);
 			$n=sizeof($k);
@@ -1158,6 +1159,7 @@ class php_compress extends compress_core{
 		$GLOBALS['DB_VB'][$n]['encode']=$ed;
 		//echo $n.' '.$nm.' '.$GLOBALS['DB_VB'][$n]['vbname']."\n";sleep(1);
 		$ds=','.$nm.':'.$ed;
+
 		$f=fopen($this->filedb,'a');
 		fwrite($f,$ds,strlen($ds));
 		fclose($f);
