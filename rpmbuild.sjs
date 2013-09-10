@@ -19,7 +19,10 @@ var env = process.env;
 var c = parsePKGConf(pkg_content, env);
 
 c.confParam['_topdir']=RPM_TMP;
-removeDir("/tmp/"+c.confParam['NAME']+"-buildroot", true); //remove tmp file for install
+exec("sudo rm -rf /tmp/"+c.confParam['NAME']+"-buildroot"); //remove tmp file for install
+
+//removeDir("/tmp/"+c.confParam['NAME']+"-buildroot", true); //remove tmp file for install
+
 fileEncode(c);  //start encode
 
 var specData = genSpec(c.confParam, c.pkgFile);
@@ -37,11 +40,11 @@ var file = c.confParam.NAME+"-"+c.confParam.VERSION;
 console.log("execute path:");
 print_r(herePath);
 
-cmd = "cd "+RPM_TMP+"/SOURCES && sudo rpmbuild -bb "+spec ; //+ " 2>&1";
+cmd = "cd "+RPM_TMP+"/SOURCES && sudo rpmbuild -bb "+spec + " 2>&1";
 print_r(cmd);
 var s = execSync(cmd);
 print_r(s);
-cmd = "cd "+RPM_TMP+" && cp RPMS/i386/"+file+"*.rpm  "+herePath ; //+ " 2>&1";
+cmd = "cd "+RPM_TMP+" && cp RPMS/i386/"+file+"*.rpm  "+herePath + " 2>&1";
 print_r("cmd = "+ cmd);
 var s2 = execSync(cmd);
 print_r(s2);
