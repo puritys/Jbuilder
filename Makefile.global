@@ -3,7 +3,7 @@ MKDIR=$(shell mkdir modules)
 $(MKDIR)
 SHELL = /bin/sh
 
-PHP_DIR =/home/program/php
+PHP_DIR =/usr/local/
 srcdir = $(SRC_PATH)/
 builddir = $(SRC_PATH)/
 top_srcdir = $(SRC_PATH)/
