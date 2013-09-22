@@ -7,8 +7,10 @@ DEST_LIB=/usr/local/builder
 
 DEST_BIN=/usr/local/bin
 
+glob 755 root root /usr/local/lib/java/  $SRC/*.jar
 glob 755 root root $DEST_LIB/  $SRC/Makefile*
 glob 755 root root $DEST_BIN/  $SRC/rpmbuild*
 glob 755 root root $DEST_BIN/Jbuild  $SRC/rpmbuild.sjs
+glob 755 root root $DEST_BIN/  $SRC/phpcompress/
 
 

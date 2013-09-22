@@ -16,6 +16,9 @@ var pkgPath = process.argv[2];
 
 var pkg_content = file_get_contents(pkgPath);
 var env = process.env;
+if (!env.MYRPM) {
+    env.MYRPM = "/www/devPKG";
+}
 var c = parsePKGConf(pkg_content, env);
 
 c.confParam['_topdir']=RPM_TMP;

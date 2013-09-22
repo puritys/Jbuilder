@@ -1,3 +1,6 @@
+version 0.0.3
+- Fix command and set default path
+
 version 0.0.2
 - Fix path
 

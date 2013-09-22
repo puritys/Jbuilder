@@ -175,7 +175,7 @@ global.genSpec = function(conf, file) {/*{{{*/
 
         if (re[6] && re[6] == "css_sprite" && cssSpriteEnable == false){
             cssSpriteEnable = true;
-            dir_command += "install -d %{BuildRoot}"+param.usr/local/bine\n";
+            dir_command += "install -d %{BuildRoot}" + param.homePath + "/sprite\n";
             cp_command += "cp -r "+encodeRPath+"/"+param.homePath+"/sprite %{BuildRoot}"+param.homePath+"/"+"\n";
             chmod_command += "%attr("+chmod+","+owner+","+group+") "+param.homePath+"/sprite"+" \n";
            
@@ -293,7 +293,7 @@ function dispatchEncodeType(toPath, glob, type, encodeRPath , param){/*{{{*/
         print_r("ecnode file "+fileList[pro]+"\n");
         switch(type){
             case "closure":
-                execSync("java -jar /usrlib/closurecompiler.jar --js  \""+fileList[pro]+"\" --js_output_file "+toPath+"/"+fileName);
+                execSync("java -jar /usr/local/lib/java/closurecompiler.jar --js  \""+fileList[pro]+"\" --js_output_file "+toPath+"/"+fileName);
                 break;
             case "css_sprite":
                 var css = new _CSS(); 
@@ -309,7 +309,7 @@ function dispatchEncodeType(toPath, glob, type, encodeRPath , param){/*{{{*/
                 break;
             case "css":
                 //yui compress
-                execSync("cat "+fileList[pro]+" | java -jar  /usr/local/bin/yuicompressor-2.4.6.jar --charset utf8 --type css -o "+toPath+"/"+fileName); 
+                execSync("cat "+fileList[pro]+" | java -jar  /usr/local/lib/java/yuicompressor-2.4.6.jar --charset utf8 --type css -o "+toPath+"/"+fileName); 
                 break;
             case "php_c1"://only remove comment
                 //yui compress
