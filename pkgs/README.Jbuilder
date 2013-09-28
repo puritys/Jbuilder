@@ -1,3 +1,6 @@
+version 0.0.4
+- add log of  deploy command
+
 version 0.0.3
 - Fix command and set default path
 
