@@ -1,3 +1,6 @@
+version 0.0.6
+- Improve log
+
 version 0.0.5
 - Improve log
 

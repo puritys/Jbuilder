@@ -260,12 +260,17 @@ global.fileEncode = function (conf) {/*{{{*/
                 param[k[1]] = k[2];
             }
         }
+        var cmd2 = "";
         if (!encodeType) {
             if (sourceGlob.substr(-1, 1) == "/") {
                 //cp dir
-                execSync("cp -r "+sourceGlob+"  "+encodePath);
+                cmd2 = "cp -r "+sourceGlob+"  "+encodePath;
+                print_r(cmd2);
+                execSync(cmd2);
             } else {//cp file
-                execSync("cp  "+sourceGlob+"  "+encodePath);
+                cmd2 = "cp  "+sourceGlob+"  "+encodePath;
+                print_r(cmd2);
+                execSync(cmd2);
             }
         } else {
             dispatchEncodeType(encodePath, sourceGlob, encodeType, encodeRPath, param);
