@@ -43,12 +43,12 @@ var file = c.confParam.NAME+"-"+c.confParam.VERSION;
 console.log("execute path:");
 print_r(herePath);
 
-cmd = "cd "+RPM_TMP+"/SOURCES && sudo rpmbuild -bb "+spec + " 2>&1";
+cmd = "cd "+RPM_TMP+"/SOURCES && sudo rpmbuild -bb "+spec + " --buildroot /tmp/rpm_tmp/SOURCES/" + file +" ";
 print_r(cmd);
 var s = execSync(cmd);
-print_r(s);
-cmd = "cd "+RPM_TMP+" && cp RPMS/i386/"+file+"*.rpm  "+herePath + " 2>&1";
+//print_r(s);
+cmd = "find "+RPM_TMP+"/RPMS/ -name *.rpm | xargs -t -n 1 -I@ cp @  "+herePath + " ";
 print_r("cmd = "+ cmd);
 var s2 = execSync(cmd);
-print_r(s2);
+//print_r(s2);
 

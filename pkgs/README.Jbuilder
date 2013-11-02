@@ -1,3 +1,6 @@
+version 0.0.5
+- Improve log
+
 version 0.0.4
 - add log of  deploy command
 
