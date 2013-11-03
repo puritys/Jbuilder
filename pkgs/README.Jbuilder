@@ -1,3 +1,6 @@
+version 0.0.7
+- /tmp size is not enough, change the dir to pack package
+
 version 0.0.6
 - Improve log
 

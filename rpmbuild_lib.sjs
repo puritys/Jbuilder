@@ -66,14 +66,14 @@ global.parsePKGConf=function(pkg_content, env) {/*{{{*/
 }/*}}}*/
 
 
-global.genSpec = function(conf, file) {/*{{{*/
-    removeDir("/tmp/"+conf['NAME']+"-buildroot");
+global.genSpec = function(conf, file, RPM_TMP) {/*{{{*/
+    removeDir(RPM_TMP + "/"+conf['NAME']+"-buildroot");
     var data =[];
     data.push( "%define _topdir "+conf["_topdir"]);
     data.push( "%define Version "+conf["VERSION"]);
     data.push( "%define RPM_BUILD_ROOT _topdir");
     data.push( "%define Name "+conf['NAME']);
-    data.push( "%define BuildRoot /tmp/%{Name}-buildroot");
+    data.push( "%define BuildRoot " + RPM_TMP + "/%{Name}-buildroot");
     data.push( "Summary:        Just RPM Package");
     data.push( "Name:           %{Name}");
     data.push( "Version:        %{Version}");
@@ -215,11 +215,11 @@ function replaceVB(val, env, confParam) {/*{{{*/
     return val;
 }/*}}}*/
 
-global.fileEncode = function (conf) {/*{{{*/
+global.fileEncode = function (conf, RPM_TMP) {/*{{{*/
     var confParam = conf.confParam;
     var glob = conf.pkgFile['glob'];
 
-    encodeRPath = "/tmp/rpm_tmp/SOURCES/"+confParam.NAME+"-"+confParam.VERSION; //encode root path
+    encodeRPath = RPM_TMP + "/SOURCES/"+confParam.NAME+"-"+confParam.VERSION; //encode root path
     mkdir(encodeRPath);
     var n = glob.length,re;
     var chmod = "444",owner="root",group="root";

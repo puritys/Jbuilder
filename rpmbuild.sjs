@@ -3,7 +3,8 @@ var conf = require("config.sjs");
 require(conf.SP_library+"/basic/basic_function.sjs");
 require("./rpmbuild_lib.sjs");
 //var _process = require("process").Process;
-var RPM_TMP = "/tmp/rpm_tmp";
+var RPM_TMP = "/www/rpm_tmp"; //"/tmp/rpm_tmp";
+
 exec("sudo rm -rf " + RPM_TMP);
 //removeDir(RPM_TMP, true);
 mkdir(RPM_TMP);
@@ -22,19 +23,18 @@ if (!env.MYRPM) {
 var c = parsePKGConf(pkg_content, env);
 
 c.confParam['_topdir']=RPM_TMP;
-exec("sudo rm -rf /tmp/"+c.confParam['NAME']+"-buildroot"); //remove tmp file for install
+exec("sudo rm -rf " +  RPM_TMP + "/"+c.confParam['NAME']+"-buildroot"); //remove tmp file for install
 
-//removeDir("/tmp/"+c.confParam['NAME']+"-buildroot", true); //remove tmp file for install
 
-fileEncode(c);  //start encode
+fileEncode(c, RPM_TMP);  //start encode
 
-var specData = genSpec(c.confParam, c.pkgFile);
+var specData = genSpec(c.confParam, c.pkgFile, RPM_TMP);
 var spec = RPM_TMP+"/SPECS/"+c.confParam.NAME+".spec";
 file_put_contents(spec, specData);
 
 
 //change pwd and run rpmbuild
-var cmd = "cd "+RPM_TMP+"/SOURCES && tar -zcvf "+RPM_TMP+"/SOURCES/"+c.confParam.NAME+".tar.gz "+c.confParam.NAME+"-"+c.confParam.VERSION;
+var cmd = "cd "+RPM_TMP+"/SOURCES && tar -zcvf "+RPM_TMP+"/SOURCES/"+c.confParam.NAME+".tar.gz "+c.confParam.NAME+"-"+c.confParam.VERSION + " 2>&1";
 
 execSync(cmd);
 
@@ -43,7 +43,7 @@ var file = c.confParam.NAME+"-"+c.confParam.VERSION;
 console.log("execute path:");
 print_r(herePath);
 
-cmd = "cd "+RPM_TMP+"/SOURCES && sudo rpmbuild -bb "+spec + " --buildroot /tmp/rpm_tmp/SOURCES/" + file +" ";
+cmd = "cd "+RPM_TMP+"/SOURCES && sudo rpmbuild -bb "+spec + " --buildroot " + RPM_TMP +  "/SOURCES/" + file +" 2>&1";
 print_r(cmd);
 var s = execSync(cmd);
 //print_r(s);
