@@ -1,3 +1,7 @@
+version 1.0.0
+- Add php
+- repack
+
 version 0.0.7
 - /tmp size is not enough, change the dir to pack package
 
