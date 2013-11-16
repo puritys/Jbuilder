@@ -6,7 +6,8 @@ mysql_connect('localhost','pts','p1u2r3i4t5y6s7');
 mysql_select_db('accounting');*/
 //中文php
 $GLOBALS['DB_VB'] = array();
-class php_compress extends compress_core{
+class php_compress extends compress_core
+{
 	/***compress php data*******/
 	
 	var $i=0;
@@ -92,26 +93,38 @@ class php_compress extends compress_core{
 		}
 	 
 	}
+
 	public function compress($ct){
 		if($this->only_compress_comment==1){//只刪除註解
-			$ct=$this->removeAllComment($ct);
+			$ct = $this->removeAllComment($ct);
+            $ct = $this->removePerf($ct);
 			return $ct;
 		}
-		if($this->nocompress==1){
+		if ($this->nocompress == 1) {
 			return $ct;
 		}
-		$this->new='';
-		$this->i=0;
-		$this->ct=$ct;
-		$this->n=strlen($this->ct);
-		while($this->i<$this->n){
-			$com=$this->getStart();
+		$this->new = '';
+		$this->i = 0;
+		$this->ct = $ct;
+		$this->n = strlen($this->ct);
+		while ($this->i<$this->n) {
+			$com = $this->getStart();
 			$this->i++;
 		}
 		$this->ct='';
 		return $this->new;
 	}
 	
+    public function removePerf($ct) {
+        $ay = preg_split('/[\n\r]+/', $ct);
+        $reg = "/[\s]*perfUtil::[^\n\r]+/";
+        $content = "";
+        foreach ($ay as $c) {
+            $c = preg_replace($reg, '', $c);
+            $content .= $c . "\n";
+        }
+        return $content;
+    }
 	//抓變數 funtion 開頭 class
 	private function getStart(){
 		$ok=0; // 1開始php 0 等止php
@@ -1143,7 +1156,7 @@ class php_compress extends compress_core{
 		exit(1);
 	}
 	/*****抓dB變數****/
-	function getDB_vb($nm,$prefix){
+	function getDB_vb($nm,$prefix) {/*{{{*/
 		
 		$n=sizeof($GLOBALS['DB_VB']);
 		for($i=0;$i<$n;$i++){
@@ -1167,10 +1180,10 @@ class php_compress extends compress_core{
 		//$q='insert into encode_vb(`vbname`,`encode`)values(\''.$nm.'\',\''.$ed.'\');';
 		//mysql_query($q);
 		return $GLOBALS['DB_VB'][$n]['encode'];
-	}
+	}/*}}}*/
 	
 	//只移除註解
-	function removeAllComment($ct){
+	function removeAllComment($ct){/*{{{*/
 		$ct_ans="";
 		$n=strlen($ct);
 		$quoten=0;
@@ -1215,7 +1228,7 @@ class php_compress extends compress_core{
 			$ct_ans.=$c;
 		}
 		return $ct_ans;
-	}
+	}/*}}}*/
 
 }
 
