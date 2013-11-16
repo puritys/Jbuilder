@@ -72,9 +72,13 @@ class php_compress extends compress_core
 		}
 		if(1==1) {
 			$f = fopen($this->filedb,'r');
-			$ds = fread($f,filesize($this->filedb));
+            $filesize = filesize($this->filedb);
+            $k = array();
+            if ($filesize > 0 ) {
+    			$ds = fread($f, $filesize);
+			    $k = explode(',',$ds);
+            }
 			fclose($f);
-			$k=explode(',',$ds);
 			$n=sizeof($k);
 			$ii=0;
 			for($i=0;$i<$n;$i++){
