@@ -123,9 +123,12 @@ class php_compress extends compress_core
         $ay = preg_split('/[\n\r]+/', $ct);
         $reg = "/[\s]*perfUtil::[^\n\r]+/";
         $content = "";
+        $isFirstLine = true;
         foreach ($ay as $c) {
             $c = preg_replace($reg, '', $c);
-            $content .= $c . "\n";
+            if ($isFirstLine == false) $content .= "\n";
+            $content .= $c;
+            $isFirstLine = false;
         }
         return $content;
     }
