@@ -5,8 +5,13 @@
 #make deploy pkg=git host=puritys.me
 pkg2=$(shell echo $(pkg) | sed 's/.pkg//')
 
-deploy: 
-	touch ps_$(pkg2)-tmp*.rpm && find ./ -name 'ps_$(pkg2)-*.rpm' | xargs -t -n 1  rm  && Jbuild  $(pkg2).pkg && if [ ! -f ps_$(pkg2)-*.rpm ]; then echo "Could not find rpm."; exit; fi && ssh -t $(host) ' cd /www/pkgs/ && touch ps_$(pkg2)-tmp*.rpm && find ./ -name "ps_$(pkg2)-*.rpm" | xargs -t -n 1 rm ' && scp ps_$(pkg2)*.rpm $(host):/www/pkgs/ && ssh -t  $(host) 'sudo rpm -e ps_$(pkg2)' && ssh -t $(host) 'sudo rpm -Uvh /www/pkgs/ps_$(pkg2)*.rpm' --force --nodeps  && rm *.rpm
+deploy:
+	touch ps_$(pkg2)-tmp*.rpm && find ./ -name 'ps_$(pkg2)-*.rpm' | xargs -t -n 1  rm  && Jbuild  $(pkg2).pkg
+	if [ ! -f ps_$(pkg2)-*.rpm ]; then echo "Could not find rpm."; exit; fi
+	if [ -f ps_$(pkg2)-debuginfo*.rpm ]; then rm ps_$(pkg2)-debuginfo*.rpm;  fi
+	ssh -t $(host) ' cd /www/pkgs/ && touch ps_$(pkg2)-tmp*.rpm && find ./ -name "ps_$(pkg2)-*.rpm" | xargs -t -n 1 rm ' && scp ps_$(pkg2)*.rpm $(host):/www/pkgs/ && ssh -t  $(host) 'sudo rpm -e ps_$(pkg2)' && ssh -t $(host) 'sudo rpm -Uvh /www/pkgs/ps_$(pkg2)*.rpm' --force --nodeps  && rm *.rpm
+
+#	touch ps_$(pkg2)-tmp*.rpm && find ./ -name 'ps_$(pkg2)-*.rpm' | xargs -t -n 1  rm  && Jbuild  $(pkg2).pkg && if [ ! -f ps_$(pkg2)-*.rpm ]; then echo "Could not find rpm."; exit; fi && ssh -t $(host) ' cd /www/pkgs/ && touch ps_$(pkg2)-tmp*.rpm && find ./ -name "ps_$(pkg2)-*.rpm" | xargs -t -n 1 rm ' && scp ps_$(pkg2)*.rpm $(host):/www/pkgs/ && ssh -t  $(host) 'sudo rpm -e ps_$(pkg2)' && ssh -t $(host) 'sudo rpm -Uvh /www/pkgs/ps_$(pkg2)*.rpm' --force --nodeps  && rm *.rpm
 
 deploy_quick:
 	Jbuild  $(shell cat /tmp/pkg_t).pkg && if [ ! -f $(pkg2)*.rpm ]; then exit; fi && ssh $(host) 'if [ -f ps_$(shell cat /tmp/pkg_t)*.rpm ]; then rm ps_$(shell cat /tmp/pkg_t)*.rpm; fi' && ssh $(host) 'sudo rpm -e ps_$(shell cat /tmp/pkg_t)' && scp ps_$(shell cat /tmp/pkg_t)*.rpm $(host):/www/pkgs/ && ssh $(host) 'sudo rpm -Uvh /www/pkgs/ps_$(shell cat /tmp/pkg_t)*.rpm' --force  && rm *.rpm

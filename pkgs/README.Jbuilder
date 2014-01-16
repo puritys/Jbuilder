@@ -1,3 +1,6 @@
+version 1.0.2
+- Modify deploy command to remove debuginfo package
+
 version 1.0.1
 - remove perf
 
