@@ -1,7 +1,7 @@
 NAME=Jbuilder
 VERSION_FILE=README.Jbuilder
 
-ROOT=/www/Jbuilder
+ROOT=/www/dev/Jbuilder
 SRC=$ROOT
 DEST_LIB=/usr/local/builder
 

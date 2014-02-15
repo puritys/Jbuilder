@@ -43,7 +43,7 @@ var file = c.confParam.NAME+"-"+c.confParam.VERSION;
 console.log("execute path:");
 print_r(herePath);
 
-cmd = "cd "+RPM_TMP+"/SOURCES && sudo rpmbuild -bb "+spec + " --buildroot " + RPM_TMP +  "/SOURCES/" + file +" 2>&1";
+cmd = "cd "+RPM_TMP+"/SOURCES && sudo rpmbuild -bb "+spec + " --buildroot " + RPM_TMP +  "/" + c.confParam['NAME']+"-buildroot 2>&1";
 print_r(cmd);
 var s = execSync(cmd);
 //print_r(s);

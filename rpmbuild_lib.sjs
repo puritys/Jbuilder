@@ -264,11 +264,12 @@ global.fileEncode = function (conf, RPM_TMP) {/*{{{*/
         if (!encodeType) {
             if (sourceGlob.substr(-1, 1) == "/") {
                 //cp dir
-                cmd2 = "cp -r "+sourceGlob+"  "+encodePath;
+                encodePath = encodePath.replace(/\/{2,}/, '/'); 
+                cmd2 = "cp -r "+sourceGlob+"  " + encodePath;
                 print_r(cmd2);
                 execSync(cmd2);
             } else {//cp file
-                cmd2 = "cp  "+sourceGlob+"  "+encodePath;
+                cmd2 = "cp  "+sourceGlob+"  " + encodePath;
                 print_r(cmd2);
                 execSync(cmd2);
             }

@@ -1,3 +1,7 @@
+version 1.0.3
+- Fix buildroot
+- remove debuginfo when deploy
+
 version 1.0.2
 - Modify deploy command to remove debuginfo package
 
