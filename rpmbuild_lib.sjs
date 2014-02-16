@@ -74,6 +74,7 @@ global.genSpec = function(conf, file, RPM_TMP) {/*{{{*/
     data.push( "%define RPM_BUILD_ROOT _topdir");
     data.push( "%define Name "+conf['NAME']);
     data.push( "%define BuildRoot " + RPM_TMP + "/%{Name}-buildroot");
+    data.push( "%define debug_package %{nil}");
     data.push( "Summary:        Just RPM Package");
     data.push( "Name:           %{Name}");
     data.push( "Version:        %{Version}");
