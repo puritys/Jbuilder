@@ -1,3 +1,6 @@
+version 1.0.5
+- Remove svn directory or .swp file.
+
 version 1.0.4
 - Stop debuginfo package
 

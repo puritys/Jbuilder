@@ -269,6 +269,10 @@ global.fileEncode = function (conf, RPM_TMP) {/*{{{*/
                 cmd2 = "cp -r "+sourceGlob+"  " + encodePath;
                 print_r(cmd2);
                 execSync(cmd2);
+
+                //remove .svn .xxx.swp
+                cmd2 = "cd " + encodePath + " && find -name '*.swp' -or -name '*.svn*' | xargs  -n 1 sudo rm -rf";
+                execSync(cmd2);
             } else {//cp file
                 cmd2 = "cp  "+sourceGlob+"  " + encodePath;
                 print_r(cmd2);
