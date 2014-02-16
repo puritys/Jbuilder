@@ -1,3 +1,6 @@
+version 1.0.6
+- Remove rpm package will skil dependency.
+
 version 1.0.5
 - Remove svn directory or .swp file.
 

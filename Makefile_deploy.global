@@ -9,7 +9,7 @@ deploy:
 	touch ps_$(pkg2)-tmp*.rpm && find ./ -name 'ps_$(pkg2)-*.rpm' | xargs -t -n 1  rm  && Jbuild  $(pkg2).pkg
 	if [ ! -f ps_$(pkg2)-*.rpm ]; then echo "Could not find rpm."; exit; fi
 	if [ -f ps_$(pkg2)-debuginfo*.rpm ]; then rm ps_$(pkg2)-debuginfo*.rpm;  fi
-	ssh -t $(host) ' cd /www/pkgs/ && touch ps_$(pkg2)-tmp*.rpm && find ./ -name "ps_$(pkg2)-*.rpm" | xargs -t -n 1 rm ' && scp ps_$(pkg2)*.rpm $(host):/www/pkgs/ && ssh -t  $(host) 'sudo rpm -e ps_$(pkg2)' && ssh -t $(host) 'sudo rpm -Uvh /www/pkgs/ps_$(pkg2)*.rpm' --force --nodeps  && rm *.rpm
+	ssh -t $(host) ' cd /www/pkgs/ && touch ps_$(pkg2)-tmp*.rpm && find ./ -name "ps_$(pkg2)-*.rpm" | xargs -t -n 1 rm ' && scp ps_$(pkg2)*.rpm $(host):/www/pkgs/ && ssh -t  $(host) 'sudo rpm -e ps_$(pkg2) --nodeps' && ssh -t $(host) 'sudo rpm -Uvh /www/pkgs/ps_$(pkg2)*.rpm' --force --nodeps  && rm *.rpm
 
 #	touch ps_$(pkg2)-tmp*.rpm && find ./ -name 'ps_$(pkg2)-*.rpm' | xargs -t -n 1  rm  && Jbuild  $(pkg2).pkg && if [ ! -f ps_$(pkg2)-*.rpm ]; then echo "Could not find rpm."; exit; fi && ssh -t $(host) ' cd /www/pkgs/ && touch ps_$(pkg2)-tmp*.rpm && find ./ -name "ps_$(pkg2)-*.rpm" | xargs -t -n 1 rm ' && scp ps_$(pkg2)*.rpm $(host):/www/pkgs/ && ssh -t  $(host) 'sudo rpm -e ps_$(pkg2)' && ssh -t $(host) 'sudo rpm -Uvh /www/pkgs/ps_$(pkg2)*.rpm' --force --nodeps  && rm *.rpm
 
