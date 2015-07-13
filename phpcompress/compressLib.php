@@ -91,8 +91,8 @@ class php_compress extends compress_core
 	}/*}}}*/
 
 	public function compress($ct){/*{{{*/
-		if($this->only_compress_comment==1) {//只刪除註解
-            echo "Only remove comments \n";
+		if ($this->only_compress_comment == 1) {//只刪除註解
+            //echo "Only remove comments \n";
 			$ct = $this->removeAllComment($ct);
             $ct = $this->removePerf($ct);
 			return $ct;
