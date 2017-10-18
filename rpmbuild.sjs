@@ -1,4 +1,4 @@
-#!/usr/local/bin/node
+#!/usr/bin/env node
 var conf = require("config.sjs");
 require(conf.SP_library+"/basic/basic_function.sjs");
 require("./rpmbuild_lib.sjs");
